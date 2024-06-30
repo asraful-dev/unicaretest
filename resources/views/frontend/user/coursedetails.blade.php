@@ -127,7 +127,7 @@
                                             @if ($course->course_status == 1)
                                                 Online
                                             @else
-                                            Offline
+                                                Offline
                                             @endif
                                         </td>
                                     </tr>

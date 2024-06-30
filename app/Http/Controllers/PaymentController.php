@@ -29,6 +29,7 @@ class PaymentController extends Controller
    
     public function process(Request $request)
     {  
+        // dd($request->all());
         
         // $request->validate([
         //     'user_id' => 'required|integer',
@@ -79,6 +80,7 @@ class PaymentController extends Controller
     }
     public function paymentDetails()
     {   $payment = Payment::all();
+        // dd($payment);
         
         return view('frontend.payment.details',compact('payment'));
     }

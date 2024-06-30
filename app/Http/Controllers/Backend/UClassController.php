@@ -21,7 +21,8 @@ class UClassController extends Controller
     public function index()
 {
     $classes = UClass::latest()->get();
-    $units = OurService::orderBy('id', 'asc')->get();
+    $units = OurService::orderBy('id', 'asc')->where('course_type', 1)->get();
+
 
    
     $subjects = collect();

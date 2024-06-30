@@ -61,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/join-exam/{id}', [FrontendController::class, 'joinQues'])->name('join.ques');
     Route::get('/go-ahead/{id}', [FrontendController::class, 'goAhead'])->name('go.ahead');
     Route::get('/enroll/details/{id}', [FrontendController::class, 'enrollDetails'])->name('enroll.details');
+    Route::get('/fetch-price', 'FrontendController@fetchPrice')->name('fetch.price');
 });
 // web.php
 

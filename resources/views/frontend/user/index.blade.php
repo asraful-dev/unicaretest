@@ -64,7 +64,7 @@
         @php
         $current_user = Auth::user()->id;
         $courselists = App\Models\Payment::where('user_id', $current_user)->latest()->get();
-    @endphp
+        @endphp
     
     <div class="col-md-8">
         <div class="panel panel-default shadow-lg">
