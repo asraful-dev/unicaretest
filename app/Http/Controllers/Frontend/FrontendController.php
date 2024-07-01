@@ -229,26 +229,7 @@ class FrontendController extends Controller
         return view('frontend.enroll.index', compact('categories', 'service'));
     }
 
-    public function fetchPrice(Request $request){
-
-    $coursetype = $request->get('coursetype');
-    $service = OurService::where('course_type', $coursetype)->first();
-    // dd($service);
-
-    if (!$service) {
-        return response()->json(['error' => 'Service not found'], 404);
-    }
-
-    $price = $service->price;
-    $discountPrice = $service->discount_price ? $service->discount_price : 0;
-    $subtotal = $price - $discountPrice;
-
-    return response()->json([
-        'price' => $price,
-        'subtotal' => number_format($subtotal),
-    ]);
-}
-
+   
     public function checkOut(Request $request,$id)
     {   
         $ser_id = $id;

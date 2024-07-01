@@ -7,7 +7,7 @@
 @php
 $classses = App\Models\UClass::latest()->get();
 $current_user = Auth::user()->id;
-$courselists = App\Models\Payment::where('user_id', $current_user)->latest()->get();
+$courselists = App\Models\Payment::where('user_id', $current_user)->where('course_status',1)->latest()->get();
 $current_user = Auth::user()->id;
 @endphp
 <style>
