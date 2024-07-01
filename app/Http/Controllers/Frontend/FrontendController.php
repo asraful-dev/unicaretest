@@ -260,6 +260,27 @@ class FrontendController extends Controller
             return redirect()->back()->with('error', 'Invalid payment method selected.');
         }
     }
+
+    public function fetchPrice(Request $request){
+
+        $coursetype = $request->get('coursetype');
+        $service = OurService::where('course_type', $coursetype)->first();
+        // dd($service);
+    
+        if (!$service) {
+            return response()->json(['error' => 'Service not found'], 404);
+        }
+    
+        $price = $service->price;
+        $discountPrice = $service->discount_price ? $service->discount_price : 0;
+        $subtotal = $price - $discountPrice;
+    
+        return response()->json([
+            'price' => $price,
+            'discountPrice' => $discountPrice,
+            'subtotal' => number_format($subtotal),
+        ]);
+    }
   
     
 }

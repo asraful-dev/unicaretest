@@ -160,7 +160,12 @@
          <i class="ri-arrow-up-s-line"></i>
          <i class="ri-arrow-up-s-line"></i>
       </div>
-      <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="{{ asset('frontend') }}/assets/js/jquery.min.js"></script>
+
+      {{-- new added jquery --}}
+      {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+
+      <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+      <script src="{{ asset('frontend') }}/assets/js/jquery.min.js"></script>
       <script src="{{ asset('frontend') }}/assets/js/bootstrap.bundle.min.js"></script>
       <script src="{{ asset('frontend') }}/assets/js/jquery.meanmenu.js"></script>
       <script src="{{ asset('frontend') }}/assets/js/owl.carousel.min.js"></script>
@@ -174,8 +179,8 @@
       <script src="{{ asset('frontend') }}/assets/js/ajaxchimp.min.js"></script>
       <script src="{{ asset('frontend') }}/assets/js/custom.js"></script>
       <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+      {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> --}}
        <!-- Toastr js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -202,6 +207,8 @@
         }
         @endif
     </script>
+
+    @stack('frontend-js')
    </body>
    <!-- Mirrored from templates.hibootstrap.com/sanu/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 12 May 2024 09:54:13 GMT -->
 </html>
