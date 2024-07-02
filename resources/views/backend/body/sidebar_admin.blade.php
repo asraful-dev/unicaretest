@@ -47,6 +47,7 @@
           {{(request()->route()->getName()=='general.setting')?'active':''}}
           {{(request()->route()->getName()=='class.index')?'active':''}}
           {{(request()->route()->getName()=='batch.index')?'active':''}}
+          {{(request()->route()->getName()=='routine.index')?'active':''}}
          ">
          <i class="fa-solid fa-gear"></i>
            <p>
@@ -71,6 +72,12 @@
             <a href="{{ route('batch.index') }}" class="nav-link {{(request()->route()->getName()=='batch.index')?'active':''}}">
               <i class="far fa-circle nav-icon"></i>
               <p>Manage Batch</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('routine.index') }}" class="nav-link {{(request()->route()->getName()=='routine.index')?'active':''}}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Class Routine</p>
             </a>
           </li>
          </ul>

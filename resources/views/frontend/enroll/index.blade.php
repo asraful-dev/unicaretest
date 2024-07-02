@@ -76,11 +76,54 @@
                         {{-- <h3>
                             <span>মেডিকেল + ভার্সিটি Math এডমিশন প্রোগ্রাম 2024</span>
                         </h3> --}}
-                       
+                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Unit</th>
+                                    <th>Price</th>
+                                    <th>Discount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @if ($service->unit == 1)
+                                            ক ইউনিট
+                                        @elseif ($service->unit == 2)
+                                            খ ইউনিট
+                                        @elseif ($service->unit == 3)
+                                            গ ইউনিট
+                                        @elseif ($service->unit == 4)
+                                            মেডিকেল GK
+                                        @else
+                                            ICT HSC
+                                        @endif
+                                    </td>
+                                    <td id="priceField">{{ $service->price }}</td>
+                                    @if($service->discount_price)
+                                        <td>{{ $service->discount_price }}</td>
+                                    @else
+                                        <td>No Discount</td>
+                                    @endif
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="cart_total_label" colspan="2">
+                                        <h6 class="text-muted">SUBTOTAL</h6>
+                                    </td>
+                                    <td id="subtotalField">
+                                        @if($service->discount_price)
+                                            {{ number_format($service->price - $service->discount_price) }}
+                                        @else
+                                            {{ number_format($service->price) }}
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     
                         <form action="{{ route('check.out', $service->id) }}" method="GET" class="p-3">
-
-                            
                             <div class="card-footer text-center border-0 pb-3 d-flex justify-content-center align-items-center flex-column">
                                 <div class="form-check form-check-inline mb-3 d-flex align-items-center">
                                     <input class="form-check-input" type="radio" name="course_status" value="0">

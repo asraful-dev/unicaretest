@@ -213,7 +213,7 @@ class FrontendController extends Controller
     
     
     public function enrollDetails($id)
-    {
+    {   
         $service = OurService::with('serviceDetails')
         ->where('unit', $id)
         ->where('course_type',1)

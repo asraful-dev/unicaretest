@@ -31,6 +31,7 @@ use App\Http\Controllers\Backend\CounterController;
 use App\Http\Controllers\Backend\VideoController;
 use App\Http\Controllers\Backend\UClassController;
 use App\Http\Controllers\Backend\UBatchController;
+use App\Http\Controllers\Backend\RoutineController;
 // online exam er jonne
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\QuestionController;
@@ -427,6 +428,18 @@ Route::prefix('ubatch')->group(function(){
     Route::get('/edit/{id}', [UBatchController::class, 'edit'])->name('batch.edit');
     Route::post('/update/{id}',[UBatchController::class, 'update'])->name('batch.update');
     Route::get('/delete/{id}', [UBatchController::class, 'destroy'])->name('batch.delete');
+});
+
+/* ==================== Admin Routine All Routes =================== */
+Route::prefix('routine')->group(function(){
+    Route::get('/index', [RoutineController::class, 'index'])->name('routine.index');
+    Route::get('/create', [RoutineController::class, 'create'])->name('routine.create');
+    Route::post('/store', [RoutineController::class, 'store'])->name('routine.store');
+    Route::get('/edit/{id}', [RoutineController::class, 'edit'])->name('routine.edit');
+    Route::post('/update/{id}',[RoutineController::class, 'update'])->name('routine.update');
+    Route::get('/delete/{id}', [RoutineController::class, 'destroy'])->name('routine.delete');
+    Route::get('/get-classes/{subject_id}', [RoutineController::class, 'getClasses']);
+    
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');

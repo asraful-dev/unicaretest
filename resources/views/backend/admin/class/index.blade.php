@@ -120,7 +120,7 @@
                     <div class="card">
                         <div class="card-header d-flex">
                             <h3 class="card-title">Class List</h3>
-                            <span class="badge badge-success rounded-pill ml-2" style="font-size: 17px;"> {{ count($classes) }} </span>
+                            <span class="badge badge-success rounded-pill ml-2" style="font-size: 17px;"></span>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

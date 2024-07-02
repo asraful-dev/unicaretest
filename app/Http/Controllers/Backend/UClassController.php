@@ -19,15 +19,10 @@ class UClassController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
+    {
     $classes = UClass::latest()->get();
     $units = OurService::orderBy('id', 'asc')->where('course_type', 1)->get();
-
-
-   
     $subjects = collect();
-
-   
     foreach ($units as $unit) {
         $subjects = $subjects->merge(ServiceDetail::where('our_service_id', $unit->id)->get());
     }
@@ -35,7 +30,7 @@ class UClassController extends Controller
     $pageTitle = "Class List";
 
     return view('backend.admin.class.index', compact('classes', 'units', 'subjects', 'pageTitle'));
-}
+    }
 
 
     /**
