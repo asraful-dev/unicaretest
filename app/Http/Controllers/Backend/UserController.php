@@ -248,7 +248,6 @@ class UserController extends Controller
         $categories = Category::where('status',1)->orderBy('id', 'ASC')->limit(7)->get();
         $id = Auth::user()->id;
         $userData = User::find($id);
-        
         return view('frontend.user.my_course_view',compact('userData','categories'));
     }
     

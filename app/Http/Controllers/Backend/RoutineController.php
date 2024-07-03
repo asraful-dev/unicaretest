@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ClassRoutine;
 use App\Models\OurService;
+use App\Models\UClass;
 use App\Models\ServiceDetail;
 class RoutineController extends Controller
 {
@@ -20,21 +21,17 @@ class RoutineController extends Controller
         $pageTitle = "Class Routine";
         $units = OurService::orderBy('id', 'asc')->where('course_type', 1)->get();
         $subjects = collect();
+        
         foreach ($units as $unit) {
-            $subjects = $subjects->merge(ServiceDetail::where('our_service_id', $unit->id)->get());
+            $unitSubjects = ServiceDetail::where('our_service_id', $unit->id)->get();
+            $subjects = $subjects->merge($unitSubjects);
         }
+        
+        // Fetch all UClasses and group by subject_id
+        $uclasses = UClass::all()->groupBy('subject_id');
     
-        return view('backend.admin.routine.index', compact('class_routine', 'pageTitle', 'units', 'subjects'));
+        return view('backend.admin.routine.index', compact('class_routine', 'pageTitle', 'units', 'subjects', 'uclasses'));
     }
-
-    public function getClasses($subject_id)
-    {
-        $uclasses = UClass::where('subject_id', $subject_id)->get();
-        return response()->json($uclasses);
-    }
-
-    
-    
 
     /**
      * Show the form for creating a new resource.
@@ -54,41 +51,42 @@ class RoutineController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  
+        // dd($request->all());
         $request->validate([
-            'class_id' => 'required|integer', 
-            'batch_no' => 'required|string|max:255', 
-            'batch_time' => 'required|string|max:255', 
+            'unit' => 'required',
+            'subject_id' => 'required',
+            'class_topic' => 'required',
+            'start_time' => 'required', // Assuming time format 
+            'end_time' => 'required',
+            'status' => 'required|boolean',
         ]);
-        
-
-        $batch = Batch::where('batch_no',$request->batch_no)->first();
-        
-        if($batch){
-            $notification = array(
-                'message' => 'This is Batch is Already Added.', 
-                'alert-type' => 'error'
-            );
-            return redirect()->route('batch.index')->with($notification);
-        }else{
-            $batch = new Batch;
-
-            $batchTime = date('h:i A', strtotime($request->input('batch_time')));
-            $batch->class_id            = $request->class_id;
-            $batch->batch_no            = $request->batch_no;
-            $batch->batch_time          = $batchTime;
-            $batch->created_by          = Auth::user()->id;
-            $batch->created_at = Carbon::now();
-            $batch->save();
     
-            $notification = array(
-                'message' => 'Batch Created Successfully.', 
-                'alert-type' => 'success'
-            );
+        // Create a new instance of the ClassRoutine model
+        $routine = new ClassRoutine();
     
-            return redirect()->route('batch.index')->with($notification);
-        }
+        // Assign values from the validated request to the model instance
+        $routine->unit = $request->unit;
+        $routine->subject_id = $request->subject_id;
+        $routine->class_topic = $request->class_topic;
+        $routine->start_time = $request->start_time;
+        $routine->end_time = $request->end_time;
+        $routine->status = $request->status;
+    
+        // Save the routine to the database
+        $routine->save();
+    
+        // Optionally, set a notification message for success
+        $notification = [
+            'message' => 'Class Routine added successfully.',
+            'alert-type' => 'success',
+        ];
+    
+        // Redirect back with the notification message
+        return redirect()->back()->with($notification);
     }
+    
+    
 
     /**
      * Display the specified resource.

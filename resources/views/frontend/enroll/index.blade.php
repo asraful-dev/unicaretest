@@ -95,11 +95,11 @@
                                     </td>
                                     <td id="priceField">{{ $service->price }}</td>
                                     @if($service->discount_price)
-<<<<<<< HEAD
+
                                         <td>{{ $service->discount_price }}</td>
-=======
+
                                         <td id="discountPrice">{{ $service->discount_price }}</td>
->>>>>>> d378bc4efd200d7eac89ebfaaa96a4caeca9e9ef
+
                                     @else
                                         <td>No Discount</td>
                                     @endif
@@ -121,11 +121,11 @@
                             </tfoot>
                         </table>
                     
-<<<<<<< HEAD
+
                         <form action="{{ route('check.out', $service->id) }}" method="GET" class="p-3">
-=======
+
                         <form action="{{ route('check.out', $service->id) }}" method="GET" class="p-3" id="checkoutForm">
->>>>>>> d378bc4efd200d7eac89ebfaaa96a4caeca9e9ef
+
                             <div class="card-footer text-center border-0 pb-3 d-flex justify-content-center align-items-center flex-column">
                                 <div class="form-check form-check-inline mb-3 d-flex align-items-center">
                                     <input class="form-check-input" id="offline" type="radio" name="course_status" value="0" onclick="updatePrice('offline')" style="cursor: pointer;">

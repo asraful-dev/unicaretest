@@ -438,10 +438,11 @@ Route::prefix('routine')->group(function(){
     Route::get('/create', [RoutineController::class, 'create'])->name('routine.create');
     Route::post('/store', [RoutineController::class, 'store'])->name('routine.store');
     Route::get('/edit/{id}', [RoutineController::class, 'edit'])->name('routine.edit');
+    Route::get('/show/{id}', [RoutineController::class, 'show'])->name('routine.show');
     Route::post('/update/{id}',[RoutineController::class, 'update'])->name('routine.update');
     Route::get('/delete/{id}', [RoutineController::class, 'destroy'])->name('routine.delete');
     Route::get('/get-classes/{subject_id}', [RoutineController::class, 'getClasses']);
-    
+
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');

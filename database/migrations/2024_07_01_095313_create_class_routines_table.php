@@ -17,7 +17,7 @@ class CreateClassRoutinesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('unit');
             $table->string('subject_id')->nullable();
-            $table->string('topics_name')->nullable();
+            $table->string('class_topic')->nullable();
             $table->timestamp('start_time');
             $table->timestamp('end_time')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->unsignedTinyInteger('status')->default(0)->comment('1=>Active, 0=>Inactive');
