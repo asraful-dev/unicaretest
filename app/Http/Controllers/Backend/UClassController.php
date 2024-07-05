@@ -60,7 +60,7 @@ class UClassController extends Controller
 
         $class = UClass::where('class_topic',$request->class_topic)->first();
         // dd($class);
-        
+
         $class = new UClass;
         
         $class->video_link            = $request->video_link;

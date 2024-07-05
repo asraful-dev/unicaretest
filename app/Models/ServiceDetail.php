@@ -20,5 +20,10 @@ class ServiceDetail extends Model
         return $this->belongsTo(OurService::class);
     }
 
+    public function classRoutines()
+    {
+        return $this->hasMany(ClassRoutine::class, 'subject_id'); // Explicitly specify the foreign key
+    }
+
     
 }
