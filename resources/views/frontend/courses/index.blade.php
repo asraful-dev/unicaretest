@@ -5,6 +5,7 @@
 @php
 	$materials = App\Models\Material::where('status', 1)->latest()->get();
    $category = App\Models\Category::where('slug','our-materials')->first();
+   $class_routine = ClassRoutine::latest()->get();
 
 @endphp
 <div class="sidebarModal modal right fade" id="sidebarModal" tabindex="-1" role="dialog">

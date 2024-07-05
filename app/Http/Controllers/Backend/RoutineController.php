@@ -107,8 +107,29 @@ class RoutineController extends Controller
      */
     public function edit($id)
     {
-        //    
+        // Retrieve the class routine by ID
+        $class_routine = ClassRoutine::findOrFail($id);
+
+        // Fetch units
+        $units = OurService::orderBy('id', 'asc')->where('course_type', 1)->get();
+
+        // Initialize subjects collection
+        $subjects = collect();
+
+        // Fetch subjects related to units
+        foreach ($units as $unit) {
+            $unitSubjects = ServiceDetail::where('our_service_id', $unit->id)->get();
+            $subjects = $subjects->merge($unitSubjects);
+        }
+
+        // Fetch all UClasses and group by subject_id
+        $uclasses = UClass::all()->groupBy('subject_id');
+
+        // Return the edit view with data
+        $pageTitle = "Edit Class Routine"; // Added pageTitle for breadcrumb consistency
+        return view('backend.admin.routine.edit', compact('class_routine', 'units', 'subjects', 'uclasses', 'pageTitle'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -119,30 +140,36 @@ class RoutineController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Validate incoming request data
         $request->validate([
-            'class_id' => 'required|integer', // assuming class_id should be an existing class id
-            'batch_no' => 'required|string|max:255', // ensuring batch_no is unique within the batches table
-            'batch_time' => 'required|string|max:255', // ensuring batch_time is a string
+            'unit' => 'required',
+            'subject_id' => 'required',
+            'class_topic' => 'required',
+            'start_time' => 'required|date_format:Y-m-d\TH:i',
+            'end_time' => 'required|date_format:Y-m-d\TH:i|after:start_time',
+            'status' => 'required|boolean',
         ]);
-        
-        $batch = Batch::find($id);
-        $batchTime = date('h:i A', strtotime($request->input('batch_time')));
-        $batch->class_id              = $request->class_id;
-        $batch->batch_time            = $batchTime;
-        $batch->batch_no              = $request->batch_no;
-        $batch->status                = $request->status;
-        $batch->updated_at = Carbon::now();
-        $batch->updated_by = Auth::user()->id;
-        $batch->save();
 
-        $notification = array(
-            'message' => 'Batch Updated Successfully.', 
-            'alert-type' => 'success'
-        );
+        // Find the class routine by ID
+        $routine = ClassRoutine::findOrFail($id);
 
-        return redirect()->route('batch.index')->with($notification);
+        // Update routine with validated data
+        $routine->unit = $request->unit;
+        $routine->subject_id = $request->subject_id;
+        $routine->class_topic = $request->class_topic;
+        $routine->start_time = $request->start_time;
+        $routine->end_time = $request->end_time;
+        $routine->status = $request->status;
+
+        // Save the routine
+        $routine->save();
+
+        // Redirect back to index with success message
+        return redirect()->route('routine.index')->with([
+            'message' => 'Class Routine updated successfully.',
+            'alert-type' => 'success',
+        ]);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -151,11 +178,11 @@ class RoutineController extends Controller
      */
     public function destroy($id)
     {
-        $batch = Batch::find($id);
-        $batch->delete();
+        $routine = ClassRoutine::find($id);
+        $routine->delete();
 
         $notification = array(
-            'message' => 'Batch Deleted Successfully.', 
+            'message' => 'Class Routine Deleted Successfully.', 
             'alert-type' => 'error'
         );
 

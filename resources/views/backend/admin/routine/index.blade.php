@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Class</h1>
+                    <h1>Class Routine</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -104,8 +104,8 @@
                                     <div class="form-group col-md-12">
                                         <label for="status">Status</label>
                                         <select name="status" class="custom-select" id="statusSelect">
-                                            <option value="1">Active</option>
-                                            <option value="0" selected>Inactive</option>
+                                            <option value="1" selected>Active</option>
+                                            <option value="0">Inactive</option>
                                         </select>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex">
-                            <h3 class="card-title">Class List</h3>
+                            <h3 class="card-title">Class Routine List</h3>
                             <span class="badge badge-success rounded-pill ml-2" style="font-size: 17px;">N/A</span>
                         </div>
                         <div class="card-body">
@@ -133,6 +133,8 @@
                                         <th>Unit Name</th>
                                         <th>Subject Name</th>
                                         <th>Class Topic</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -167,14 +169,12 @@
                                             </td>
                                             <td>{{ ucwords($subject->subject) }}</td>
                                             <td>{{ ucwords($class_topic->class_topic) }}</td>
-                                            <td>
+                                            <td>{{ \Carbon\Carbon::parse($routine->start_time)->format('j M Y, g:i a') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($routine->end_time)->format('j M Y, g:i a') }}</td><td>
                                                 <a href="{{ route('routine.edit', $routine->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
                                                 <a href="{{ route('routine.show', $routine->id) }}" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a>
-                                                <form action="{{ route('routine.delete', $routine->id) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Data"><i class="fa fa-trash"></i></button>
-                                                </form>
+
+                                                <a href="{{ route('routine.delete',$routine->id) }}" class="btn btn-danger btn-sm" title="Delete Data" id="delete"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
