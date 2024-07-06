@@ -45,6 +45,7 @@
       <li class="nav-item {{ $isActiveParent ? 'menu-open' : '' }}">
          <a href="#" class="nav-link 
           {{(request()->route()->getName()=='general.setting')?'active':''}}
+          {{(request()->route()->getName()=='unit.index')?'active':''}}
           {{(request()->route()->getName()=='class.index')?'active':''}}
           {{(request()->route()->getName()=='batch.index')?'active':''}}
           {{(request()->route()->getName()=='routine.index')?'active':''}}
@@ -62,6 +63,12 @@
                <p>General Setting</p>
              </a>
            </li>
+           <li class="nav-item">
+            <a href="{{ route('unit.index') }}" class="nav-link {{(request()->route()->getName()=='unit.index')?'active':''}}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Manage Unit</p>
+            </a>
+          </li>
            <li class="nav-item">
             <a href="{{ route('class.index') }}" class="nav-link {{(request()->route()->getName()=='class.index')?'active':''}}">
               <i class="far fa-circle nav-icon"></i>

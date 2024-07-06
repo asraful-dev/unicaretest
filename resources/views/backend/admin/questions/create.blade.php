@@ -49,7 +49,7 @@
                                <button type="button" onclick="generateQuestions()" class="btn btn-success">Generate Questions</button>
                            </div>
                            <div class="form-group" id="submit-button" style="display:none;">
-                               <button type="submit" class="btn btn-primary">Submit</button>
+                               <button type="submit" class="btn btn-success">Submit</button>
                            </div>
                        </div>
                      </form>

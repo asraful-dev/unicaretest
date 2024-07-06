@@ -9,67 +9,65 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <style>
-   .panel-default {
-       border-color: #ddd;
-       box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-   }
-   .panel-heading {
-       background-color: #111D5E;
-       color: white;
-       padding: 15px;
-       border-top-left-radius: 3px;
-       border-top-right-radius: 3px;
-   }
-   .list-group-item {
-    background-color: #111D5E;
-    color: white !important;
-    border: none;
-    margin-bottom: 5px;
-    transition: background-color 0.3s, color 0.3s;
-}
-.list-group-item:hover,
-.list-group-item:focus {
-    background-color: #D45956 !important;
-    color: white !important;
-}
-.list-group-item.active {
-    background-color: #D45956 !important;
-    color: black !important;
-}
-   .btn-custom {
-       background-color: #D45956;
-       color: white;
-       border: none;
-       transition: background-color 0.3s;
-   }
-   .btn-custom:hover {
-       background-color: #C03E3A;
-       color: white;
-   }
-   .btn-success-custom {
-       background-color: #111D5E;
-       color: white;
-       border: none;
-       transition: background-color 0.3s;
-   }
-   .btn-success-custom:hover {
-       background-color: #0F174A;
-       color:white
-   }
-   #contactInfoContainer {
-       border-top: 2px solid #111D5E;
-       padding-top: 20px;
-       margin-top: 20px;
-   }
-   #unitInfo {
-       margin: 20px 0;
-   }
-
-   /* Added CSS for hover effect */
-   .list-group-item:hover {
-       background-color: #D45956;
-       color: white !important;
-   }
+    .panel-default {
+        border-color: #ddd;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+    .panel-heading {
+        background-color: #111D5E;
+        color: white;
+        padding: 15px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+    .list-group-item {
+        background-color: #111D5E;
+        color: white !important;
+        border: none;
+        margin-bottom: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    .list-group-item:hover,
+    .list-group-item:focus {
+        background-color: #D45956 !important;
+        color: white !important;
+    }
+    .list-group-item.active {
+        background-color: #D45956 !important;
+        color: black !important;
+    }
+    .btn-custom {
+        background-color: #D45956;
+        color: white;
+        border: none;
+        transition: background-color 0.3s;
+    }
+    .btn-custom:hover {
+        background-color: #C03E3A;
+        color: white;
+    }
+    .btn-success-custom {
+        background-color: #111D5E;
+        color: white;
+        border: none;
+        transition: background-color 0.3s;
+    }
+    .btn-success-custom:hover {
+        background-color: #0F174A;
+        color:white
+    }
+    #contactInfoContainer {
+        border-top: 2px solid #111D5E;
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+    #unitInfo {
+        margin: 20px 0;
+    }
+    .list-group {
+        max-height:300px; /* Adjust this value as needed */
+        overflow-y: auto;
+    }
 </style>
 
 <div class="container mt-5">

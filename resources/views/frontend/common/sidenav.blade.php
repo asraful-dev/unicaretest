@@ -10,7 +10,7 @@
         $route = Route::current()->getName();
         $prefix = Request::route()->getPrefix();
     @endphp
-    <div class="panel-body shadow-lg">
+    <div class="panel-body shadow-lg" style="max-height:250px; overflow-y: auto;">
         <ul class="list-group">
             <li class="list-group-item {{ ($route == 'user.dashboard') ? 'active' : '' }}">
                 <a href="{{ route('user.dashboard')}}" class="btn btn-link">Dashboard</a>

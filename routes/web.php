@@ -30,6 +30,7 @@ use App\Http\Controllers\Backend\OurServiceController;
 use App\Http\Controllers\Backend\CounterController;
 use App\Http\Controllers\Backend\VideoController;
 use App\Http\Controllers\Backend\UClassController;
+use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\UBatchController;
 use App\Http\Controllers\Backend\RoutineController;
 // online exam er jonne
@@ -190,6 +191,20 @@ Route::prefix('slider')->group(function(){
     Route::get('/delete/{id}', [SliderController::class, 'delete'])->name('slider.delete');
     Route::get('/slider_active/{id}', [SliderController::class, 'active'])->name('slider.active');
     Route::get('/slider_inactive/{id}', [SliderController::class, 'inactive'])->name('slider.in_active');
+});
+
+
+/* ==================== Unit All Routes =================== */
+Route::prefix('unit')->group(function(){
+    Route::get('/index', [UnitController::class, 'index'])->name('unit.index');
+    Route::get('/create', [UnitController::class, 'create'])->name('unit.create');
+    Route::post('/store', [UnitController::class, 'store'])->name('unit.store');
+    Route::get('/edit/{id}', [UnitController::class, 'edit'])->name('unit.edit');
+    Route::get('/view/{id}', [UnitController::class, 'view'])->name('unit.show');
+    Route::post('/update/{id}',[UnitController::class, 'update'])->name('unit.update');
+    Route::get('/delete/{id}', [UnitController::class, 'delete'])->name('unit.delete');
+    Route::get('/unit_active/{id}', [UnitController::class, 'active'])->name('unit.active');
+    Route::get('/unit_inactive/{id}', [UnitController::class, 'inactive'])->name('unit.inactive');
 });
 
 /* ==================== Admin Category All Routes =================== */

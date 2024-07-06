@@ -216,7 +216,7 @@ $courselists = App\Models\Payment::where('user_id', $current_user)->where('cours
                                                 <a href="{{ asset($class->lecture_shit) }}" class="btn btn-primary btn-sm" download>Lecture Sheet <i class="fas fa-download"></i></a>
                                              </div>
                                              @elseif($current_time < $start_time)
-                                                <h4 class="text-center text-dark font-weight-bold mb-5">Video will be available at after</h4>
+                                                <h4 class="text-center text-dark font-weight-bold mb-5">Your next class video will be available after this time</h4>
                                                 <div class="wrap-countdown mercado-countdown text-center mb-5" data-expire="{{ Carbon\Carbon::parse($start_time)->format('Y/m/d H:i:s') }}"></div>
                                              @else
                                                 <div class="text-center p-3">

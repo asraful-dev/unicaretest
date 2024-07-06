@@ -12,7 +12,9 @@
                         <h2 class="text-light">Your Exam Is Over</h2>
                     @elseif(Carbon::parse($startDate)->isFuture())
                         <a href="index.html"><img src="{{ asset(get_setting('site_logo')->value ?? 'null')}}" class="main-logo" alt="Images"></a>
-                        <h2 class="text-light">Your Exam Coming Soon Please Wait</h2>
+                     
+                        <h2 class="text-light">Dear {{ Str::ucfirst(Auth::user()->name ?? 'N/A') }} !</h2>
+                        <h3 class="text-light">Your exam will start after this time</h3>
                         <div class="list">
                             <ul id="timer" class="flex-wrap d-flex justify-content-center">
                                 <div>

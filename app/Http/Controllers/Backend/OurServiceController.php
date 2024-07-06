@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\OurService;
+use App\Models\Unit;
 use App\Models\Wallet;
 use App\Models\ExtraFacility;
 use App\Models\ServiceDetail;
@@ -21,7 +22,7 @@ class OurServiceController extends Controller
      */
     public function store(Request $request)
     {  
-        // dd($request->all());
+        dd($request->all());
        
         // $request->validate([
         //     'unit' => 'required|integer',
@@ -98,8 +99,9 @@ class OurServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('backend.admin.OurService.create');
+    {   
+        $units = Unit::all();
+        return view('backend.admin.OurService.create',compact('units'));
     }
 
     /**
