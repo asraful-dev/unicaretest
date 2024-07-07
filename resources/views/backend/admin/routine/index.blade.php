@@ -39,69 +39,60 @@
                             </button>
                         </div>
                         <form action="{{ route('routine.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="modal-body">
-                                @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="unit">Unit Name</label>
-                                        <select name="unit" class="custom-select" id="unitSelect">
-                                            <option selected>Choose Unit</option>
+                                        <label for="unit_id">Unit Name</label>
+                                        <select name="unit_id" class="custom-select @error('unit_id') is-invalid @enderror" id="unitSelect">
+                                            <option selected disabled>Choose Unit</option>
                                             @foreach ($units as $unit)
-                                            <option value="{{ $unit->id }}">
-                                                @if ($unit->unit == 1)
-                                                ক ইউনিট
-                                                @elseif ($unit->unit == 2)
-                                                খ ইউনিট
-                                                @elseif ($unit->unit == 3)
-                                                গ ইউনিট
-                                                @elseif ($unit->unit == 4)
-                                                মেডিকেল GK
-                                                @else
-                                                ICT HSC
-                                                @endif
-                                            </option>
+                                                <option value="{{ $unit->id }}">{{ $unit->unit_name }}</option>
                                             @endforeach
                                         </select>
+                                        @error('unit_id')
+                                            <span class="text-danger font-weight-bold">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="subject_id">Subject Name</label>
+                                        <select name="subject_id" class="custom-select @error('subject_id') is-invalid @enderror" id="subjectSelect">
+                                            <option selected disabled>Choose Subject</option>
+                                            <!-- Options will be dynamically populated using JavaScript -->
+                                        </select>
                                         @error('subject_id')
-                                        <span class="text-danger font-weight-bolder">{{ $message }}</span>
+                                            <span class="text-danger font-weight-bold">{{ $message }}</span>
                                         @enderror
-                                        <select name="subject_id" class="custom-select" id="subjectSelect">
-                                            <option selected>Choose Subject</option>
-                                            @foreach ($subjects as $subject)
-                                            <option value="{{ $subject->id }}" data-unit="{{ $subject->our_service_id }}">{{ ucfirst($subject->subject) }}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="class_topic">Class Topics</label>
+                                    <div class="form-group col-md-6">
+                                        <label for="class_topic">Class Topic</label>
+                                        <select name="class_topic" class="custom-select @error('class_topic') is-invalid @enderror" id="classTopicSelect">
+                                            <option selected disabled>Choose Class Topic</option>
+                                            <!-- Options will be dynamically populated using JavaScript -->
+                                        </select>
                                         @error('class_topic')
-                                        <span class="text-danger font-weight-bolder">{{ $message }}</span>
+                                            <span class="text-danger font-weight-bold">{{ $message }}</span>
                                         @enderror
-                                        <select name="class_topic" class="custom-select" id="classTopicSelect">
-                                            <option selected>Choose Class topics</option>
-                                            @foreach ($uclasses as $subjectId => $classes)
-                                                @foreach ($classes as $class)
-                                                    <option value="{{ $class->id }}" data-subject="{{ $subjectId }}">{{ $class->class_topic ?? 'N/A' }}</option>
-                                                @endforeach
-                                            @endforeach
-                                        </select>
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label for="start_time">Start Time</label>
-                                        <input type="datetime-local" name="start_time" id="start_time" class="form-control" required>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="end_time">End Time</label>
-                                        <input type="datetime-local" name="end_time" id="end_time" class="form-control" required>
+                                        <input type="datetime-local" name="start_time" id="start_time" class="form-control @error('start_time') is-invalid @enderror" required>
+                                        @error('start_time')
+                                            <span class="text-danger font-weight-bold">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
+                                        <label for="end_time">End Time</label>
+                                        <input type="datetime-local" name="end_time" id="end_time" class="form-control @error('end_time') is-invalid @enderror" required>
+                                        @error('end_time')
+                                            <span class="text-danger font-weight-bold">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label for="status">Status</label>
                                         <select name="status" class="custom-select" id="statusSelect">
                                             <option value="1" selected>Active</option>
@@ -115,6 +106,7 @@
                                 <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </form>
+                        
                     </div>
                 </div>
             </div>
@@ -138,7 +130,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                {{-- <tbody>
                                     @foreach ($class_routine as $routine)
                                         @php
                                             $unit = App\Models\OurService::find($routine->unit);
@@ -167,8 +159,8 @@
                                                     Unit Not Found
                                                 @endif
                                             </td>
-                                            <td>{{ ucwords($subject->subject) }}</td>
-                                            <td>{{ ucwords($class_topic->class_topic) }}</td>
+                                      
+                                     
                                             <td>{{ \Carbon\Carbon::parse($routine->start_time)->format('j M Y, g:i a') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($routine->end_time)->format('j M Y, g:i a') }}</td><td>
                                                 <a href="{{ route('routine.edit', $routine->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
@@ -178,7 +170,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                </tbody>
+                                </tbody> --}}
                                 
                                
                             </table>
@@ -192,64 +184,44 @@
 </div>
 
 <script>
-    // Prepare the subjects and class topics data
-    const subjects = @json($subjects);
-    const uclasses = @json($uclasses);
-
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        const unitSelect = document.getElementById('unitSelect');
         const subjectSelect = document.getElementById('subjectSelect');
-        const classTopicSelect = document.getElementById('classTopicSelect');
 
-        // Populate subjects based on selectedUnit
-        function populateSubjects(selectedUnit) {
-            // Clear previous subjects
+        unitSelect.addEventListener('change', function () {
+            const selectedUnit = this.value;
+
+            // Reset subject options
             subjectSelect.innerHTML = '<option selected>Choose Subject</option>';
 
-            subjects.forEach(subject => {
-                if (selectedUnit == subject.our_service_id) {
+            // Fetch subjects via AJAX
+            fetchSubjects(selectedUnit);
+        });
+
+        function fetchSubjects(unitId) {
+            // AJAX request to fetch subjects based on unit ID
+            fetch('{{ route('getSubjectsByUnitForRoutinePage') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ unit_id: unitId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Populate subject select options dynamically
+                data.forEach(subject => {
                     const option = document.createElement('option');
                     option.value = subject.id;
-                    option.textContent = ucfirst(subject.subject);
+                    option.innerText = subject.subject;
                     subjectSelect.appendChild(option);
-                }
-            });
-        }
-
-        // Populate class topics based on selected subject
-        function populateClassTopics(selectedSubject) {
-            // Clear previous class topics
-            classTopicSelect.innerHTML = '<option selected>Choose Class topics</option>';
-
-            if (uclasses[selectedSubject]) {
-                uclasses[selectedSubject].forEach(classTopic => {
-                    const option = document.createElement('option');
-                    option.value = classTopic.id;
-                    option.textContent = classTopic.class_topic ?? 'N/A';
-                    classTopicSelect.appendChild(option);
                 });
-            }
-        }
-
-        // Event listener for unit selection
-        document.getElementById('unitSelect').addEventListener('change', function() {
-            const selectedUnit = this.value;
-            populateSubjects(selectedUnit);
-
-            // Clear previous class topics
-            classTopicSelect.innerHTML = '<option selected>Choose Class topics</option>';
-        });
-
-        // Event listener for subject selection
-        subjectSelect.addEventListener('change', function() {
-            const selectedSubject = this.value;
-            populateClassTopics(selectedSubject);
-        });
-
-        // Utility function to capitalize the first letter
-        function ucfirst(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
+            })
+            .catch(error => console.error('Error fetching subjects:', error));
         }
     });
 </script>
+
 
 @endsection

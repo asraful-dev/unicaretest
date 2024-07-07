@@ -224,13 +224,10 @@ class UserController extends Controller
     public function courseDetails($id)
     {
         $course = Payment::find($id);
-        // dd($course);
-        
-        $serviceImage =OurService::where('unit', $course->unit)->pluck('image')->first();
         $categories = Category::where('status',1)->orderBy('id', 'ASC')->limit(7)->get();
         $id = Auth::user()->id;
         $userData = User::find($id);
-        return view('frontend.user.coursedetails',compact('userData','categories','course','serviceImage'));
+        return view('frontend.user.coursedetails',compact('userData','categories','course'));
      
     }
 

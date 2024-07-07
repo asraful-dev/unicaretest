@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ClassRoutine;
 use App\Models\OurService;
 use App\Models\UClass;
+use App\Models\Unit;
 use App\Models\ServiceDetail;
 class RoutineController extends Controller
 {
@@ -19,18 +20,26 @@ class RoutineController extends Controller
     {
         $class_routine = ClassRoutine::latest()->get();
         $pageTitle = "Class Routine";
-        $units = OurService::orderBy('id', 'asc')->where('course_type', 1)->get();
-        $subjects = collect();
+        $units = Unit::all();
         
-        foreach ($units as $unit) {
-            $unitSubjects = ServiceDetail::where('our_service_id', $unit->id)->get();
-            $subjects = $subjects->merge($unitSubjects);
-        }
         
         // Fetch all UClasses and group by subject_id
         $uclasses = UClass::all()->groupBy('subject_id');
     
-        return view('backend.admin.routine.index', compact('class_routine', 'pageTitle', 'units', 'subjects', 'uclasses'));
+        return view('backend.admin.routine.index', compact('class_routine', 'pageTitle', 'units','uclasses'));
+    }
+
+    public function getSubjectsByUnit(Request $request)
+    {
+        $unitId = $request->input('unit_id');
+        
+        // Fetch the service related to the selected unit
+        $service = OurService::where('unit', $unitId)->first();
+    
+        // Fetch subjects related to the service
+        $subjects = ServiceDetail::where('our_service_id', $service->id)->get();
+    
+        return response()->json($subjects);
     }
 
     /**

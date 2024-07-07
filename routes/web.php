@@ -200,7 +200,7 @@ Route::prefix('unit')->group(function(){
     Route::get('/create', [UnitController::class, 'create'])->name('unit.create');
     Route::post('/store', [UnitController::class, 'store'])->name('unit.store');
     Route::get('/edit/{id}', [UnitController::class, 'edit'])->name('unit.edit');
-    Route::get('/view/{id}', [UnitController::class, 'view'])->name('unit.show');
+    Route::get('/view/{id}', [UnitController::class, 'view'])->name('unit.s');
     Route::post('/update/{id}',[UnitController::class, 'update'])->name('unit.update');
     Route::get('/delete/{id}', [UnitController::class, 'delete'])->name('unit.delete');
     Route::get('/unit_active/{id}', [UnitController::class, 'active'])->name('unit.active');
@@ -435,7 +435,12 @@ Route::prefix('uclass')->group(function(){
     Route::get('/edit/{id}', [UClassController::class, 'edit'])->name('class.edit');
     Route::post('/update/{id}',[UClassController::class, 'update'])->name('class.update');
     Route::get('/delete/{id}', [UClassController::class, 'destroy'])->name('class.delete');
+
+    // Route to handle AJAX request for fetching subjects by unit ID
+     Route::post('/getSubjectsByUnit', [UClassController::class, 'getSubjectsByUnit'])->name('getSubjectsByUnit');
+
 });
+
 
 /* ==================== Admin Batch All Routes =================== */
 Route::prefix('ubatch')->group(function(){
@@ -457,7 +462,8 @@ Route::prefix('routine')->group(function(){
     Route::post('/update/{id}',[RoutineController::class, 'update'])->name('routine.update');
     Route::get('/delete/{id}', [RoutineController::class, 'destroy'])->name('routine.delete');
     Route::get('/get-classes/{subject_id}', [RoutineController::class, 'getClasses']);
-
+    // Route to handle AJAX request for fetching subjects by unit ID
+    Route::post('/getSubjectsByUnit', [RoutineController::class, 'getSubjectsByUnit'])->name('getSubjectsByUnitForRoutinePage');
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');

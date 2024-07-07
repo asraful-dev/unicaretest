@@ -81,17 +81,10 @@
                                     <tr>
                                         <td class="text-dark">Course Unit</td>
                                         <td class="text-dark">
-                                        @if ($course->unit == 1)
-                                            ক ইউনিট
-                                        @elseif ($course->unit == 2)
-                                            খ ইউনিট
-                                        @elseif ($course->unit == 3)
-                                            গ ইউনিট
-                                        @elseif ($course->unit == 4)
-                                            মেডিকেল GK
-                                        @else
-                                            ICT HSC
-                                        @endif
+                                            @php
+                                            $unit = App\Models\Unit::where('id',$course->unit)->first();
+                                            @endphp
+                                         {{ $unit->unit_name }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -134,7 +127,7 @@
                                     <tr>
                                         <td class="text-dark">Course Photo</td>
                                         <td>
-                                            <img src="{{ asset($serviceImage ?? 'frontend/default-image.png') }}" alt="" style="height:70px; width:80px;">
+                                            <img src="{{ asset($unit->unit_image) }}" alt="" style="height:70px; width:80px;">
                                         </td>
                                     </tr>
                                 </table>

@@ -65,26 +65,6 @@
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-12">
-                           <div class="form-group">
-                              <label for="slider_image">Banner<span class="text-danger">(Size: 1920x1280):</span></label>
-                              <div class="input-group">
-                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input image" name="image" id="slider_image">
-                                    <label class="custom-file-label" for="slider_image">Choose file</label>
-                                 </div>
-                                 <div class="input-group-append">
-                                    <span class="input-group-text">Upload</span>
-                                 </div>
-                              </div>
-                              @error('image')
-                              <span class="text-danger">{{ $message }}</span>
-                              @enderror
-                              <div class="mb-2 mt-3">
-                                 <img id="showImage" class="rounded avatar-lg showImage" src="{{ (!empty($editData->profile_image)) ? url('upload/admin_images/'.$editData->profile_image) : url('upload/no_image.jpg') }}" alt="No Image" width="100px" height="80px;">
-                              </div>
-                           </div>
-                        </div>
                         <div class="container">
                            <div class="row">
                               <div class="row mb-3 add_item">

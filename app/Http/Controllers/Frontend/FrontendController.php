@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Models\Pages;
 use App\Models\Blog;
+use App\Models\Unit;
 use App\Models\Payment;
 use App\Models\BlogCategory;
 use App\Models\Category;
@@ -105,37 +106,8 @@ class FrontendController extends Controller
 
     public function our_service()
     {   $categories = Category::where('status',1)->orderBy('id', 'ASC')->limit(7)->get();
-        $OurService1 = OurService::where('unit', '1')
-        ->where('course_type', '1')
-        ->orderBy('id', 'desc')
-        ->get();
-
-        $OurService2 = OurService::where('unit', '2')
-        ->where('course_type', '1')
-        ->orderBy('id', 'desc')
-        ->get();
-
-       $OurService3 = OurService::where('unit', '3')
-        ->where('course_type', '1')
-        ->orderBy('id', 'desc')
-        ->get();
-
-        $OurService4 = OurService::where('unit', '4')
-        ->where('course_type', '1')
-        ->orderBy('id', 'desc')
-        ->get();
-
-         $OurService5 = OurService::where('unit', '5')
-        ->where('course_type', '1')
-        ->orderBy('id', 'desc')
-        ->get();
-        
-        $banner1 = OurService::where('unit', '1')->where('course_type', '1')->pluck('image');
-        $banner2 = OurService::where('unit', '2')->where('course_type', '1')->pluck('image');
-        $banner3 = OurService::where('unit', '3')->where('course_type', '1')->pluck('image');
-        $banner4 = OurService::where('unit', '4')->where('course_type', '1')->pluck('image');
-        $banner5 = OurService::where('unit', '5')->where('course_type', '1')->pluck('image');
-        return view('frontend.OurService.index', compact('banner1', 'categories', 'OurService1', 'OurService2', 'OurService3','OurService4','OurService5','banner2','banner3','banner4','banner5'));
+        $units = Unit::all();
+        return view('frontend.OurService.index', compact('categories','units'));
     } 
     public function terms_conditions()
     {   

@@ -22,7 +22,6 @@ class CreateOurServicesTable extends Migration
                 $table->integer('three_facility')->nullable();
                 $table->float('price');
                 $table->float('discount_price')->nullable();
-                $table->string('image');
                 $table->boolean ('course_type')->comment('1=>online, 0=>offline');
                 $table->unsignedTinyInteger('status')->default(0)->comment('1=>Active, 0=>Inactive');
                 $table->timestamps();

@@ -118,7 +118,7 @@
 </style>
 @php
 $current_user = Auth::user()->id;
-$courselists = App\Models\Payment::where('user_id', $current_user)->where('course_status', 1)->latest()->get();
+$courselists = App\Models\Payment::where('user_id', $current_user)->where('course_status', 1)->get();
 @endphp
 <div class="container bootstrap snippets bootdey mt-5">
    <div class="row ng-scope">
@@ -138,17 +138,10 @@ $courselists = App\Models\Payment::where('user_id', $current_user)->where('cours
                      <a href="#unit-{{ $course->unit }}" data-toggle="tab" title="Unit {{ $course->unit }}">
                      <span class="round-tabs one">
                      <i class="glyphicon glyphicon-home p-3">  
-                     @if ($course->unit == 1)
-                     ক ইউনিট
-                     @elseif ($course->unit == 2)
-                     খ ইউনিট
-                     @elseif ($course->unit == 3)
-                     গ ইউনিট
-                     @elseif ($course->unit == 4)
-                     মেডিকেল GK
-                     @else
-                     ICT HSC
-                     @endif
+                     @php
+                        $unit = App\Models\Unit::where('id',$course->unit)->first();
+                     @endphp
+                     {{ $unit->unit_name }}
                      </i>
                      </span> 
                      </a>

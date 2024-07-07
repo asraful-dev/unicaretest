@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UClass;
 use App\Models\OurService;
+use App\Models\Unit;
 use App\Models\ServiceDetail;
 use Illuminate\Support\Carbon;
 use Auth;
@@ -19,21 +20,29 @@ class UClassController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {  
+        $classes = UClass::latest()->get();
+        $units = Unit::all();
+        $pageTitle = "Class List";
+
+        return view('backend.admin.class.index', compact('classes','units', 'pageTitle'));
+    }
+
+    public function getSubjectsByUnit(Request $request)
     {
-    $classes = UClass::latest()->get();
-    $units = OurService::orderBy('id', 'asc')->where('course_type', 1)->get();
-    $subjects = collect();
-    foreach ($units as $unit) {
-        $subjects = $subjects->merge(ServiceDetail::where('our_service_id', $unit->id)->get());
+        $unitId = $request->input('unit_id');
+        
+        // Fetch the service related to the selected unit
+        $service = OurService::where('unit', $unitId)->first();
+    
+        // Fetch subjects related to the service
+        $subjects = ServiceDetail::where('our_service_id', $service->id)->get();
+    
+        return response()->json($subjects);
     }
-
-    $pageTitle = "Class List";
-
-    return view('backend.admin.class.index', compact('classes', 'units', 'subjects', 'pageTitle'));
-    }
-
-
-    /**
+    
+    
+ /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -96,6 +105,8 @@ class UClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     
     public function show($id)
     {
         //
@@ -107,11 +118,7 @@ class UClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $class = UClass::find($id);
-        return view('backend.admin.class.edit', compact('class'));
-    }
+   
 
     /**
      * Update the specified resource in storage.

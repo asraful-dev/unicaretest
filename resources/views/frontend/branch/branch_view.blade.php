@@ -21,7 +21,7 @@ $branchs = App\Models\Branch::where('status', 1)->latest()->get();
       </style>
     <title>Hello, world!</title>
   </head>
-  <body style="background-color: #1F2C75;">
+  <body style="background-color: #904FF4;">
     <div class="py-5">
         <div class="container">
            <h2 class="text-light font-weight-bold">দেশব্যাপী আামাদের শাখা সমুহ </h2><br>
@@ -29,7 +29,7 @@ $branchs = App\Models\Branch::where('status', 1)->latest()->get();
            <div class="row">
             @foreach($branchs as $branch)
             <div class="col-md-4 mt-4">
-              <div class="card p-3">
+              <div class="card p-3 shadow-lg">
                 <div class="card-block">
                     <div class="container">
                         <div class="row">

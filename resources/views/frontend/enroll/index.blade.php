@@ -81,17 +81,10 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        @if ($service->unit == 1)
-                                            ক ইউনিট
-                                        @elseif ($service->unit == 2)
-                                            খ ইউনিট
-                                        @elseif ($service->unit == 3)
-                                            গ ইউনিট
-                                        @elseif ($service->unit == 4)
-                                            মেডিকেল GK
-                                        @else
-                                            ICT HSC
-                                        @endif
+                                       @php
+                                           $unit = App\Models\Unit::where('id',$service->unit)->first();
+                                       @endphp
+                                       {{ $unit->unit_name }}
                                     </td>
                                     <td id="priceField">{{ $service->price }}</td>
                                     @if($service->discount_price)
@@ -122,8 +115,7 @@
                         </table>
                     
 
-                        <form action="{{ route('check.out', $service->id) }}" method="GET" class="p-3">
-
+                       
                         <form action="{{ route('check.out', $service->id) }}" method="GET" class="p-3" id="checkoutForm">
 
                             <div class="card-footer text-center border-0 pb-3 d-flex justify-content-center align-items-center flex-column">

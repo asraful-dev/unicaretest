@@ -94,22 +94,13 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>
                                             @php
-                                                $serviceImage = App\Models\OurService::where('unit', $course->unit)->pluck('image')->first();
+                                            $unit = App\Models\Unit::where('id',$course->unit)->first();
                                             @endphp
-                                            <img src="{{ asset($serviceImage ?? 'frontend/default-image.png') }}" width="70" height="60" alt="No Photo">
+                  
+                                            <img src="{{ asset($unit->unit_image) }}" width="70" height="60" alt="No Photo">
                                         </td>
                                         <td>
-                                            @if ($course->unit == 1)
-                                                ক ইউনিট
-                                            @elseif ($course->unit == 2)
-                                                খ ইউনিট
-                                            @elseif ($course->unit == 3)
-                                                গ ইউনিট
-                                            @elseif ($course->unit == 4)
-                                                মেডিকেল GK
-                                            @else
-                                                ICT HSC
-                                            @endif
+                                            {{ $unit->unit_name }}
                                         </td>
                                         <td class="col-2 font-weight-bolder">
                                             ৳{{ number_format($course->total_amount, 2) }}

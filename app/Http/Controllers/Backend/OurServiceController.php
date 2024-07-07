@@ -22,7 +22,7 @@ class OurServiceController extends Controller
      */
     public function store(Request $request)
     {  
-        dd($request->all());
+      
        
         // $request->validate([
         //     'unit' => 'required|integer',
@@ -37,15 +37,7 @@ class OurServiceController extends Controller
         //     'status' => 'required|boolean',
         // ]);
         
-        // Validation পাস হলে মাত্র ডাটা সেভ হবে
-        if($request->hasfile('image')){
-            $image = $request->file('image');
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-            Image::make($image)->resize(1170,482)->save('upload/OurService/'.$name_gen);
-            $image = 'upload/OurService/'.$name_gen;
-        }else{
-            $image = $request->image;
-        }
+       
         
         $ourService = new OurService();
         $ourService->unit = $request->unit;
@@ -56,7 +48,6 @@ class OurServiceController extends Controller
         $ourService->discount_price = $request->discount_price;
         $ourService->course_type = $request->course_type;
         $ourService->status = $request->status;
-        $ourService->image = $image;
         $ourService->created_at = Carbon::now();
         $ourService->save();
 
